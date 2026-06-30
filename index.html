@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Assessment — PHCC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <header>
+            <img class="header-logo" src="logo.png" alt="PUI Logo">
+            <div class="header-text">
+                <span class="header-badge">PUI-Supported Program</span>
+                <h1>PHCC Laptop Assessment</h1>
+                <p>Primary Healthcare Centers — Equipment Needs Survey</p>
+            </div>
+        </header>
+
+        <form id="assessmentForm">
+
+            <!-- 1. Assessment Details -->
+            <section class="card">
+                <div class="card-header">
+                    <span class="section-badge">1</span>
+                    <div>
+                        <h2>Assessment Details</h2>
+                        <p class="section-desc">General information about this visit</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="phccName">PHCC Name</label>
+                        <input type="text" id="phccName" name="phccName" list="phccList" autocomplete="off" placeholder="Type to search…" required>
+                        <datalist id="phccList">
+                            <option value="Baakleen PHCC">
+                            <option value="Baalbeck PHCC">
+                            <option value="Baalchmay PHCC">
+                            <option value="Barouk PHCC">
+                            <option value="Borj Qalaway PHCC">
+                            <option value="Choueifat PHCC">
+                            <option value="Farouk PHCC">
+                            <option value="Fneidek PHCC">
+                            <option value="Ghazieh PHCC">
+                            <option value="Ghoubeiry PHCC">
+                            <option value="Hariri PHCC Beirut">
+                            <option value="Hazmieh PHCC">
+                            <option value="Iklim PHCC">
+                            <option value="Imam Rida PHCC">
+                            <option value="Irshad PHCC">
+                            <option value="Jbaa PHCC">
+                            <option value="Ketermaya PHCC">
+                            <option value="Khatam Anbiaa PHCC">
+                            <option value="Khiam PHCC">
+                            <option value="Maarake PHCC">
+                            <option value="Makhzoumi PHCC">
+                            <option value="Mar Antonios PHCC">
+                            <option value="Miriata PHCC">
+                            <option value="Nabatiyeh PHCC">
+                            <option value="Nozha PHCC">
+                            <option value="Qaa PHCC">
+                            <option value="Qabrikha PHCC">
+                            <option value="Qana PHCC">
+                            <option value="Qaser PHCC">
+                            <option value="Rahmah PHCC">
+                            <option value="Ras Maska PHCC">
+                            <option value="REMEDY PHCC">
+                            <option value="RH Chebaa">
+                            <option value="RH Saida">
+                            <option value="Salemtak PHCC">
+                            <option value="Serepta PHCC">
+                            <option value="Sidikin PHCC">
+                            <option value="St Paul PHCC">
+                            <option value="TGH">
+                            <option value="Zahraa PHCC">
+                        </datalist>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="area">Area</label>
+                            <select id="area" name="area" required>
+                                <option value="" disabled selected>Select area…</option>
+                                <option value="South">South</option>
+                                <option value="Tripoli">Tripoli</option>
+                                <option value="BML">BML</option>
+                                <option value="Akkar">Akkar</option>
+                                <option value="Bekaa">Bekaa</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="assessmentDate">Assessment Date</label>
+                            <input type="date" id="assessmentDate" name="assessmentDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="assessorName">Assessor Name</label>
+                        <select id="assessorName" name="assessorName" required>
+                            <option value="" disabled selected>Select assessor…</option>
+                            <option value="Walid El Dada">Walid El Dada</option>
+                            <option value="Nour Zeindine">Nour Zeindine</option>
+                            <option value="Sara Zakaria">Sara Zakaria</option>
+                            <option value="Ouday Al Ali">Ouday Al Ali</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Consultation Rooms -->
+            <section class="card">
+                <div class="card-header">
+                    <span class="section-badge">2</span>
+                    <div>
+                        <h2>Consultation Rooms</h2>
+                        <p class="section-desc">Laptop inventory for consultation rooms</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="crTotalRooms">Total consultation rooms</label>
+                            <input type="number" id="crTotalRooms" name="crTotalRooms" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="crReqPhenics">Rooms requiring PHENICS access</label>
+                            <input type="number" id="crReqPhenics" name="crReqPhenics" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="crExistingLaptops">Existing laptops in use</label>
+                            <input type="number" id="crExistingLaptops" name="crExistingLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="crFunctionalLaptops">Functional laptops</label>
+                            <input type="number" id="crFunctionalLaptops" name="crFunctionalLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="crNonFunctionalLaptops">Non-functional / weak laptops</label>
+                            <input type="number" id="crNonFunctionalLaptops" name="crNonFunctionalLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="crSharedLaptops">Laptops shared between rooms</label>
+                            <input type="number" id="crSharedLaptops" name="crSharedLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="crAdditionalNeeded">Additional laptops needed</label>
+                            <input type="number" id="crAdditionalNeeded" name="crAdditionalNeeded" min="0" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="form-group form-group--last">
+                        <label for="crComments">Comments / Remarks</label>
+                        <textarea id="crComments" name="crComments" rows="3" placeholder="Optional notes…"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Triage Rooms -->
+            <section class="card">
+                <div class="card-header">
+                    <span class="section-badge">3</span>
+                    <div>
+                        <h2>Triage Rooms</h2>
+                        <p class="section-desc">Laptop inventory for triage rooms</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="trTotalRooms">Total triage rooms available</label>
+                            <input type="number" id="trTotalRooms" name="trTotalRooms" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trReqPhenics">Rooms requiring PHENICS access</label>
+                            <input type="number" id="trReqPhenics" name="trReqPhenics" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trDedicatedLaptops">Dedicated laptops in triage</label>
+                            <input type="number" id="trDedicatedLaptops" name="trDedicatedLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trFunctionalLaptops">Functional laptops</label>
+                            <input type="number" id="trFunctionalLaptops" name="trFunctionalLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trNonFunctionalLaptops">Non-functional / weak laptops</label>
+                            <input type="number" id="trNonFunctionalLaptops" name="trNonFunctionalLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trSharedLaptops">Laptops shared with other rooms</label>
+                            <input type="number" id="trSharedLaptops" name="trSharedLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trAdditionalNeeded">Additional laptops needed</label>
+                            <input type="number" id="trAdditionalNeeded" name="trAdditionalNeeded" min="0" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="form-group form-group--last">
+                        <label for="trComments">Comments / Remarks</label>
+                        <textarea id="trComments" name="trComments" rows="3" placeholder="Optional notes…"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Reception / Data Entry -->
+            <section class="card">
+                <div class="card-header">
+                    <span class="section-badge">4</span>
+                    <div>
+                        <h2>Reception / Data Entry</h2>
+                        <p class="section-desc">Laptop inventory for reception and data entry staff</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="rdTotalStaff">Total data entry staff</label>
+                            <input type="number" id="rdTotalStaff" name="rdTotalStaff" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="rdReqPhenics">Staff requiring PHENICS access</label>
+                            <input type="number" id="rdReqPhenics" name="rdReqPhenics" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="rdAvailableLaptops">Laptops available at reception</label>
+                            <input type="number" id="rdAvailableLaptops" name="rdAvailableLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="rdFunctionalLaptops">Functional laptops</label>
+                            <input type="number" id="rdFunctionalLaptops" name="rdFunctionalLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="rdNonFunctionalLaptops">Non-functional / weak laptops</label>
+                            <input type="number" id="rdNonFunctionalLaptops" name="rdNonFunctionalLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="rdSharedLaptops">Laptops shared between staff</label>
+                            <input type="number" id="rdSharedLaptops" name="rdSharedLaptops" min="0" placeholder="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="rdAdditionalNeeded">Additional laptops needed</label>
+                            <input type="number" id="rdAdditionalNeeded" name="rdAdditionalNeeded" min="0" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="form-group form-group--last">
+                        <label for="rdComments">Comments / Remarks</label>
+                        <textarea id="rdComments" name="rdComments" rows="3" placeholder="Optional notes…"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actions -->
+            <div class="actions">
+                <p class="status-text" id="statusText">Ready to submit.</p>
+                <div class="button-group">
+                    <button type="button" id="btnSaveLocally" class="btn secondary">Save Locally</button>
+                    <button type="button" id="btnSubmitSheets" class="btn primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        Submit to Google Sheets
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="app.js"></script>
+</body>
+</html>
