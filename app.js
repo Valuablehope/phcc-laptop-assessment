@@ -7,7 +7,7 @@ const toastElement    = document.getElementById('toast');
 const DRAFT_KEY   = 'phcc_draft';
 const RECORDS_KEY = 'phcc_records';
 
-const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwZ-mx67gpgbiCpVo1Rax-xlCvZgzSLEfVItsVPrfSSNUD3sbn4qqdJTmFhvtbp0JD7/exec';
+const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbztKNw54190ZUU-W9YMZsuoH_C_vmHEOjNdeRwqfagiBYwXkhLi_IDcT_yr1robIZi3/exec';
 
 const SUBMIT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
