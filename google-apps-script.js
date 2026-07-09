@@ -16,24 +16,29 @@
 
 function doPost(e) {
   try {
-    // Open the active spreadsheet and get the first sheet
     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
-    
-    // Parse the JSON data sent from the form
     const data = JSON.parse(e.postData.contents);
     
+    const DEPARTMENTS = ["ER", "Inpatient Admission", "Main Reception", "Maternity Ward", "NICU", "OR", "Laboratory", "Radiology"];
+    const DEP_FIELDS = ["Total Staff", "Req PHENICS", "Available", "Functional", "Non-Functional", "Shared", "Additional Needed", "Comments"];
+
     // Check if the sheet is empty (needs headers)
     if (sheet.getLastRow() === 0) {
       const headers = [
         "Timestamp",
-        "PHCC Name", "Area", "Assessor Name", "Assessment Date",
+        "Facility Type", "Facility Name", "Area", "Assessor Name", "Assessment Date",
         "CR - Total Rooms", "CR - Req PHENICS", "CR - Existing", "CR - Functional", "CR - Non-Functional", "CR - Shared", "CR - Additional Needed", "CR - Comments",
         "TR - Total Rooms", "TR - Req PHENICS", "TR - Dedicated", "TR - Functional", "TR - Non-Functional", "TR - Shared", "TR - Additional Needed", "TR - Comments",
         "RD - Total Staff", "RD - Req PHENICS", "RD - Available", "RD - Functional", "RD - Non-Functional", "RD - Shared", "RD - Additional Needed", "RD - Comments"
       ];
-      sheet.appendRow(headers);
       
-      // Style headers
+      DEPARTMENTS.forEach(dep => {
+        DEP_FIELDS.forEach(f => {
+          headers.push(dep + " - " + f);
+        });
+      });
+
+      sheet.appendRow(headers);
       const headerRange = sheet.getRange(1, 1, 1, headers.length);
       headerRange.setFontWeight("bold");
       headerRange.setBackground("#f3f4f6");
@@ -41,9 +46,12 @@ function doPost(e) {
     }
     
     // Create the row data based on the form submission
+    const facilityType = data.facilityType || "PHCC";
+    
     const rowData = [
       new Date(), // Timestamp
-      data.phccName || "",
+      facilityType,
+      data.phccName || "", // Using phccName because we kept the input name the same in HTML
       data.area || "",
       data.assessorName || "",
       data.assessmentDate || "",
@@ -76,21 +84,30 @@ function doPost(e) {
       data.rdComments || ""
     ];
     
-    // Append the row to the sheet
+    // Append Hospital department fields
+    DEPARTMENTS.forEach(dep => {
+      const prefix = dep.replace(/\s+/g, '').toLowerCase();
+      rowData.push(data[prefix + "TotalStaff"] || "");
+      rowData.push(data[prefix + "ReqPhenics"] || "");
+      rowData.push(data[prefix + "Available"] || "");
+      rowData.push(data[prefix + "Functional"] || "");
+      rowData.push(data[prefix + "NonFunctional"] || "");
+      rowData.push(data[prefix + "Shared"] || "");
+      rowData.push(data[prefix + "AdditionalNeeded"] || "");
+      rowData.push(data[prefix + "Comments"] || "");
+    });
+    
     sheet.appendRow(rowData);
     
-    // Return success response
     return ContentService.createTextOutput(JSON.stringify({ "status": "success", "message": "Row added successfully" }))
       .setMimeType(ContentService.MimeType.JSON);
       
   } catch (error) {
-    // Return error response
     return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": error.message }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// Handle GET requests (useful for verifying the deployment is working)
 function doGet(e) {
   return ContentService.createTextOutput("The PHCC Laptop Assessment Web App is running.")
     .setMimeType(ContentService.MimeType.TEXT);

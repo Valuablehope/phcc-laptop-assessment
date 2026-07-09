@@ -393,3 +393,4 @@ textarea {
     .button-group { flex-direction: column; }
     .status-text { text-align: center; }
 }
+.hidden { display: none !important; }

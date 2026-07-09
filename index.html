@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laptop Assessment — PHCC</title>
+    <title id="pageTitle">Laptop Assessment — PHCC</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,8 +15,8 @@
             <img class="header-logo" src="logo.png" alt="PUI Logo">
             <div class="header-text">
                 <span class="header-badge">PUI-Supported Program</span>
-                <h1>PHCC Laptop Assessment</h1>
-                <p>Primary Healthcare Centers — Equipment Needs Survey</p>
+                <h1 id="mainTitle">PHCC Laptop Assessment</h1>
+                <p id="subTitle">Primary Healthcare Centers — Equipment Needs Survey</p>
             </div>
         </header>
 
@@ -32,8 +32,15 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="form-group facility-type-group">
+                        <label>Facility Type</label>
+                        <div class="radio-group" style="display: flex; gap: 1.5rem; margin-top: 0.5rem; margin-bottom: 1.5rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="radio" name="facilityType" value="PHCC" checked style="width: auto;"> PHCC</label>
+                            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="radio" name="facilityType" value="Hospital" style="width: auto;"> Hospital</label>
+                        </div>
+                    </div>
                     <div class="form-group">
-                        <label for="phccName">PHCC Name</label>
+                        <label for="phccName" id="facilityNameLabel">PHCC Name</label>
                         <input type="text" id="phccName" name="phccName" list="phccList" autocomplete="off" placeholder="Type to search…" required>
                         <datalist id="phccList">
                             <option value="Baakleen PHCC">
@@ -109,7 +116,7 @@
             </section>
 
             <!-- 2. Consultation Rooms -->
-            <section class="card">
+            <section class="card phcc-section">
                 <div class="card-header">
                     <span class="section-badge">2</span>
                     <div>
@@ -156,7 +163,7 @@
             </section>
 
             <!-- 3. Triage Rooms -->
-            <section class="card">
+            <section class="card phcc-section">
                 <div class="card-header">
                     <span class="section-badge">3</span>
                     <div>
@@ -203,7 +210,7 @@
             </section>
 
             <!-- 4. Reception / Data Entry -->
-            <section class="card">
+            <section class="card phcc-section">
                 <div class="card-header">
                     <span class="section-badge">4</span>
                     <div>
@@ -248,6 +255,34 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Hospital Section 2: Active Departments -->
+            <section class="card hospital-section hidden" id="hospitalDepartmentsSection">
+                <div class="card-header">
+                    <span class="section-badge">2</span>
+                    <div>
+                        <h2>Active Departments or Floors</h2>
+                        <p class="section-desc">Select all that apply for this hospital</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="checkbox-grid" id="hospitalDepartmentsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="ER" style="width: auto;"> ER</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="Inpatient Admission" style="width: auto;"> Inpatient Admission</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="Main Reception" style="width: auto;"> Main Reception</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="Maternity Ward" style="width: auto;"> Maternity Ward</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="NICU" style="width: auto;"> NICU</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="OR" style="width: auto;"> OR</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="Laboratory" style="width: auto;"> Laboratory</label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;"><input type="checkbox" name="departments" value="Radiology" style="width: auto;"> Radiology</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hospital Section 3: Department Details container -->
+            <div id="hospitalDetailsContainer" class="hospital-section hidden">
+                <!-- Dynamically generated sections will go here -->
+            </div>
 
             <!-- Actions -->
             <div class="actions">

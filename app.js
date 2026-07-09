@@ -13,8 +13,136 @@ const SUBMIT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none"
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
 
+const phccSections = document.querySelectorAll('.phcc-section');
+const hospitalSections = document.querySelectorAll('.hospital-section');
+const facilityNameLabel = document.getElementById('facilityNameLabel');
+const phccNameInput = document.getElementById('phccName');
+const hospitalDetailsContainer = document.getElementById('hospitalDetailsContainer');
+const pageTitle = document.getElementById('pageTitle');
+const mainTitle = document.getElementById('mainTitle');
+const subTitle = document.getElementById('subTitle');
+
+function updateHospitalSectionNumbers() {
+    const sections = hospitalDetailsContainer.querySelectorAll('section.card');
+    sections.forEach((sec, index) => {
+        const badge = sec.querySelector('.section-badge');
+        if (badge) badge.textContent = 3 + index;
+    });
+}
+
+function updateFacilityTypeView() {
+    const facilityType = document.querySelector('input[name="facilityType"]:checked').value;
+    if (facilityType === 'Hospital') {
+        phccSections.forEach(el => el.classList.add('hidden'));
+        hospitalSections.forEach(el => el.classList.remove('hidden'));
+        facilityNameLabel.textContent = 'Hospital Name';
+        phccNameInput.placeholder = 'Enter Hospital name…';
+        phccNameInput.removeAttribute('list');
+        
+        pageTitle.textContent = 'Laptop Assessment — Hospital';
+        mainTitle.textContent = 'Hospital Laptop Assessment';
+        subTitle.textContent = 'Hospitals — Equipment Needs Survey';
+    } else {
+        phccSections.forEach(el => el.classList.remove('hidden'));
+        hospitalSections.forEach(el => el.classList.add('hidden'));
+        facilityNameLabel.textContent = 'PHCC Name';
+        phccNameInput.placeholder = 'Type to search…';
+        phccNameInput.setAttribute('list', 'phccList');
+        
+        pageTitle.textContent = 'Laptop Assessment — PHCC';
+        mainTitle.textContent = 'PHCC Laptop Assessment';
+        subTitle.textContent = 'Primary Healthcare Centers — Equipment Needs Survey';
+    }
+}
+
+document.querySelectorAll('input[name="facilityType"]').forEach(radio => {
+    radio.addEventListener('change', updateFacilityTypeView);
+});
+
+document.querySelectorAll('input[name="departments"]').forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+        const deptName = e.target.value;
+        const prefix = deptName.replace(/\s+/g, '').toLowerCase();
+        const deptId = `dept-${prefix}`;
+
+        if (e.target.checked) {
+            if (!document.getElementById(deptId)) {
+                const section = document.createElement('section');
+                section.className = 'card';
+                section.id = deptId;
+                section.innerHTML = `
+                    <div class="card-header">
+                        <span class="section-badge">H</span>
+                        <div>
+                            <h2>${deptName}</h2>
+                            <p class="section-desc">Laptop inventory for ${deptName}</p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="${prefix}TotalStaff">Total staff in department</label>
+                                <input type="number" id="${prefix}TotalStaff" name="${prefix}TotalStaff" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="${prefix}ReqPhenics">Staff requiring PHENICS access</label>
+                                <input type="number" id="${prefix}ReqPhenics" name="${prefix}ReqPhenics" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="${prefix}Available">Laptops available</label>
+                                <input type="number" id="${prefix}Available" name="${prefix}Available" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="${prefix}Functional">Functional laptops</label>
+                                <input type="number" id="${prefix}Functional" name="${prefix}Functional" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="${prefix}NonFunctional">Non-functional / weak laptops</label>
+                                <input type="number" id="${prefix}NonFunctional" name="${prefix}NonFunctional" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="${prefix}Shared">Laptops shared between staff</label>
+                                <input type="number" id="${prefix}Shared" name="${prefix}Shared" min="0" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="${prefix}AdditionalNeeded">Additional laptops needed</label>
+                                <input type="number" id="${prefix}AdditionalNeeded" name="${prefix}AdditionalNeeded" min="0" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="form-group form-group--last">
+                            <label for="${prefix}Comments">Comments / Remarks</label>
+                            <textarea id="${prefix}Comments" name="${prefix}Comments" rows="3" placeholder="Optional notes…"></textarea>
+                        </div>
+                    </div>
+                `;
+                hospitalDetailsContainer.appendChild(section);
+                updateHospitalSectionNumbers();
+                
+                try {
+                    const draft = JSON.parse(localStorage.getItem(DRAFT_KEY));
+                    if (draft) {
+                        const inputs = section.querySelectorAll('input, textarea');
+                        inputs.forEach(input => {
+                            if (draft[input.name]) {
+                                input.value = draft[input.name];
+                            }
+                        });
+                    }
+                } catch {}
+            }
+        } else {
+            const section = document.getElementById(deptId);
+            if (section) {
+                section.remove();
+                updateHospitalSectionNumbers();
+            }
+        }
+    });
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     loadDraft();
+    updateFacilityTypeView();
     refreshStatus();
 });
 
@@ -118,7 +246,17 @@ btnSubmitSheets.addEventListener('click', async () => {
 
 function getFormData() {
     const data = {};
-    new FormData(form).forEach((v, k) => { data[k] = v; });
+    const fd = new FormData(form);
+    for (const [k, v] of fd.entries()) {
+        if (data[k] !== undefined) {
+            if (!Array.isArray(data[k])) {
+                data[k] = [data[k]];
+            }
+            data[k].push(v);
+        } else {
+            data[k] = v;
+        }
+    }
     return data;
 }
 
@@ -136,8 +274,25 @@ function loadDraft() {
         const draft = JSON.parse(localStorage.getItem(DRAFT_KEY));
         if (!draft) return;
         Object.entries(draft).forEach(([key, val]) => {
-            const el = form.elements[key];
-            if (el) el.value = val;
+            if (key === 'departments') {
+                const values = Array.isArray(val) ? val : [val];
+                values.forEach(v => {
+                    const el = form.querySelector(`input[name="${key}"][value="${v}"]`);
+                    if (el) {
+                       el.checked = true;
+                       el.dispatchEvent(new Event('change'));
+                    }
+                });
+            } else {
+                const el = form.elements[key];
+                if (el) {
+                    if (el instanceof NodeList || el instanceof HTMLCollection) {
+                        el.value = val;
+                    } else {
+                        el.value = val;
+                    }
+                }
+            }
         });
         updateStatus('Draft restored.');
     } catch {}
