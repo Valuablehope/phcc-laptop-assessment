@@ -7,7 +7,7 @@ const toastElement    = document.getElementById('toast');
 const DRAFT_KEY   = 'phcc_draft';
 const RECORDS_KEY = 'phcc_records';
 
-const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbztKNw54190ZUU-W9YMZsuoH_C_vmHEOjNdeRwqfagiBYwXkhLi_IDcT_yr1robIZi3/exec';
+const GOOGLE_SHEETS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxIfiDWiR3NA9gkeCYs21OW3C40u0nEG7pQYkNo7ypmelO1y6YWNatB29y9eMCYQ_Yo/exec';
 
 const SUBMIT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
 
@@ -81,28 +81,12 @@ document.querySelectorAll('input[name="departments"]').forEach(checkbox => {
                     <div class="card-body">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="${prefix}TotalStaff">Total staff in department</label>
-                                <input type="number" id="${prefix}TotalStaff" name="${prefix}TotalStaff" min="0" placeholder="0">
-                            </div>
-                            <div class="form-group">
                                 <label for="${prefix}ReqPhenics">Staff requiring PHENICS access</label>
                                 <input type="number" id="${prefix}ReqPhenics" name="${prefix}ReqPhenics" min="0" placeholder="0">
                             </div>
                             <div class="form-group">
                                 <label for="${prefix}Available">Laptops available</label>
                                 <input type="number" id="${prefix}Available" name="${prefix}Available" min="0" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="${prefix}Functional">Functional laptops</label>
-                                <input type="number" id="${prefix}Functional" name="${prefix}Functional" min="0" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="${prefix}NonFunctional">Non-functional / weak laptops</label>
-                                <input type="number" id="${prefix}NonFunctional" name="${prefix}NonFunctional" min="0" placeholder="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="${prefix}Shared">Laptops shared between staff</label>
-                                <input type="number" id="${prefix}Shared" name="${prefix}Shared" min="0" placeholder="0">
                             </div>
                             <div class="form-group">
                                 <label for="${prefix}AdditionalNeeded">Additional laptops needed</label>

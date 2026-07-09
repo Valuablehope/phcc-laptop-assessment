@@ -20,7 +20,7 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
     
     const DEPARTMENTS = ["ER", "Inpatient Admission", "Main Reception", "Maternity Ward", "NICU", "OR", "Laboratory", "Radiology"];
-    const DEP_FIELDS = ["Total Staff", "Req PHENICS", "Available", "Functional", "Non-Functional", "Shared", "Additional Needed", "Comments"];
+    const DEP_FIELDS = ["Req PHENICS", "Available", "Additional Needed", "Comments"];
 
     // Check if the sheet is empty (needs headers)
     if (sheet.getLastRow() === 0) {
@@ -87,12 +87,8 @@ function doPost(e) {
     // Append Hospital department fields
     DEPARTMENTS.forEach(dep => {
       const prefix = dep.replace(/\s+/g, '').toLowerCase();
-      rowData.push(data[prefix + "TotalStaff"] || "");
       rowData.push(data[prefix + "ReqPhenics"] || "");
       rowData.push(data[prefix + "Available"] || "");
-      rowData.push(data[prefix + "Functional"] || "");
-      rowData.push(data[prefix + "NonFunctional"] || "");
-      rowData.push(data[prefix + "Shared"] || "");
       rowData.push(data[prefix + "AdditionalNeeded"] || "");
       rowData.push(data[prefix + "Comments"] || "");
     });
